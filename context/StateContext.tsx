@@ -1,6 +1,10 @@
 import { createContext } from "react";
 
 interface ContextProps {
-  isOn: boolean;
+  power: boolean;
+  lastPlayedSound: string;
+  // methods
+  togglePower: () => void;
+  setLastPlayedSound: (sound: string) => void;
 }
 export const StateContext = createContext({} as ContextProps);

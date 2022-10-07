@@ -14,6 +14,7 @@ interface Props {
   keyToPress: string;
   audio: string;
 }
+
 const DrumPad: FC<Props> = ({ id, keyToPress, audio }) => {
   const handleKeyDown = (event: KeyboardEvent) => {
     console.log({ event });
@@ -22,8 +23,11 @@ const DrumPad: FC<Props> = ({ id, keyToPress, audio }) => {
     }
   };
 
-  const handleClick = (event: MouseEvent) => {
+  const handleClick = (event: any, keyToPress: string) => {
     // implement playing audio on click
+    console.log({ keyToPress });
+    console.log({ event });
+
     return { bla: "bla" };
   };
 
@@ -36,7 +40,7 @@ const DrumPad: FC<Props> = ({ id, keyToPress, audio }) => {
       onKeyDown={() => handleKeyDown}
       onClick={() => handleClick}
     >
-      <Button>{keyToPress}</Button>
+      <Button onClick={(e) => handleClick(e, keyToPress)}>{keyToPress}</Button>
     </Grid>
   );
 };

@@ -3,11 +3,13 @@ import { StateContext } from "./StateContext";
 import { stateReducer } from "./stateReducer";
 
 export interface State {
-  isOn: boolean;
+  power: boolean;
+  lastPlayedSound: string;
 }
 
-const State_INITIAL_STATE: State = {
-  isOn: false,
+const STATE_INITIAL_STATE: State = {
+  power: true,
+  lastPlayedSound: "Heater 1",
 };
 
 interface Props {
@@ -15,12 +17,29 @@ interface Props {
 }
 
 const StateProvider: FC<Props> = ({ children }) => {
-  const [state, dispatch] = useReducer(stateReducer, State_INITIAL_STATE);
+  const [state, dispatch] = useReducer(stateReducer, STATE_INITIAL_STATE);
+
+  const togglePower = () => {
+    dispatch({
+      type: "State - Toggle On/Off",
+    });
+  };
+
+  const setLastPlayedSound = (sound: string) => {
+    dispatch({
+      type: "State - SetLastPlayedSound",
+      payload: sound,
+    });
+  };
 
   return (
     <StateContext.Provider
       value={{
         ...state,
+
+        // methods:
+        togglePower,
+        setLastPlayedSound,
       }}
     >
       {children}

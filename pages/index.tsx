@@ -1,13 +1,22 @@
-import { Box, Grid } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
-import DrumPad from "../components/DrumPad";
 
-import drums from "../assets/drums";
+// Material UI
+import { Box, Grid, useTheme } from "@mui/material";
+
+import KeysGrid from "../components/KeysGrid";
+import DrumControllers from "../components/DrumControllers";
 
 const Home: NextPage = () => {
+  const theme = useTheme();
   return (
-    <div>
+    <Box
+      sx={{
+        minHeight: "97vh",
+        width: "100%",
+        backgroundColor: theme.palette.background.paper,
+      }}
+    >
       <Head>
         <title>Drum Machine by CGL</title>
         <meta name='description' content="CGL's Drum machine" />
@@ -18,16 +27,12 @@ const Home: NextPage = () => {
         id='drum-machine'
         display='flex'
         justifyContent='center'
+        sx={{}}
       >
-        <Grid container id='display'>
-          {drums.map((d) => {
-            return (
-              <DrumPad id={d.id} keyToPress={d.keyToPress} audio={d.audio} />
-            );
-          })}
-        </Grid>
+        <KeysGrid />
+        <DrumControllers />
       </Box>
-    </div>
+    </Box>
   );
 };
 
