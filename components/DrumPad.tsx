@@ -1,5 +1,5 @@
 // React & dependencies
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, useTheme } from "@mui/material";
 import { FC } from "react";
 
 // Material Components
@@ -16,10 +16,13 @@ interface Props {
 }
 
 const DrumPad: FC<Props> = ({ id, keyToPress, audio }) => {
+  const theme = useTheme();
+
   const handleKeyDown = (event: KeyboardEvent) => {
     console.log({ event });
     if (event.key === keyToPress) {
       // play the corresponding audio
+      // AND setState last keyPressed
     }
   };
 
@@ -32,16 +35,18 @@ const DrumPad: FC<Props> = ({ id, keyToPress, audio }) => {
   };
 
   return (
-    <Grid
-      item
-      xs={4}
-      id={id}
-      className='drum-pad'
-      onKeyDown={() => handleKeyDown}
-      onClick={() => handleClick}
+    <Button
+      onClick={(e) => handleClick(e, keyToPress)}
+      sx={{
+        m: "1vh 1vw",
+        color: theme.palette.secondary.main,
+        backgroundColor: theme.palette.background.default,
+        height: "7vh",
+        width: "8vw",
+      }}
     >
-      <Button onClick={(e) => handleClick(e, keyToPress)}>{keyToPress}</Button>
-    </Grid>
+      {keyToPress}
+    </Button>
   );
 };
 export default DrumPad;

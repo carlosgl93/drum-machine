@@ -2,7 +2,7 @@
 import { FC } from "react";
 
 // Material Components
-import { Grid } from "@mui/material";
+import { Grid, useTheme } from "@mui/material";
 
 // My components
 import DrumPad from "./DrumPad";
@@ -14,15 +14,19 @@ import drums from "../assets/drums";
 interface Props {}
 
 const KeysGrid: FC<Props> = ({}) => {
+  const theme = useTheme();
+
   return (
     <Grid
+      component='section'
       container
       id='display'
       sx={{
-        width: "100%",
-        mt: "33vh",
-        mx: "25vw",
+        width: "50vw",
+        textAlign: "center",
+        position: "relative",
       }}
+      spacing={1}
     >
       {drums.map((d) => {
         return (
@@ -32,6 +36,8 @@ const KeysGrid: FC<Props> = ({}) => {
             sx={{
               display: "flex",
               justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "7px",
             }}
             key={d.id + d.keyToPress}
           >

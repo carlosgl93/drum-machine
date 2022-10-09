@@ -27,10 +27,24 @@ const Home: NextPage = () => {
         id='drum-machine'
         display='flex'
         justifyContent='center'
-        sx={{}}
+        alignItems='center'
+        sx={{
+          height: "100vh",
+        }}
       >
-        <KeysGrid />
-        <DrumControllers />
+        <Box
+          display='flex'
+          flexDirection='row'
+          sx={{
+            border: `2px solid ${theme.palette.secondary.main}`,
+            borderRadius: "4px",
+            backgroundColor: theme.palette.background.paper,
+            p: "5vh 5vw",
+          }}
+        >
+          <KeysGrid />
+          <DrumControllers />
+        </Box>
       </Box>
     </Box>
   );
