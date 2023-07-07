@@ -5,11 +5,13 @@ import { stateReducer } from "./stateReducer";
 export interface State {
   power: boolean;
   lastPlayedSound: string;
+  volume: number;
 }
 
 const STATE_INITIAL_STATE: State = {
   power: true,
-  lastPlayedSound: "Heater 1",
+  lastPlayedSound: "",
+  volume: 100,
 };
 
 interface Props {
@@ -32,6 +34,13 @@ const StateProvider: FC<Props> = ({ children }) => {
     });
   };
 
+  const setVolume = (volume: number) => {
+    dispatch({
+      type: "State - SetVolume",
+      payload: volume,
+    });
+  };
+
   return (
     <StateContext.Provider
       value={{
@@ -40,6 +49,7 @@ const StateProvider: FC<Props> = ({ children }) => {
         // methods:
         togglePower,
         setLastPlayedSound,
+        setVolume,
       }}
     >
       {children}

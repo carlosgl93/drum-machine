@@ -1,52 +1,76 @@
-// React & dependencies
+import { FC, useCallback, useContext, useEffect } from "react";
 import { Button, Grid, useTheme } from "@mui/material";
-import { FC } from "react";
+import { StateContext } from "../context";
 
-// Material Components
-
-// My components
-
-// Queries & Mutations
-
-// Typescript
 interface Props {
-  id: string;
-  keyToPress: string;
-  audio: string;
+  drum: {
+    audio: string;
+    id: string;
+    keyToPress: string;
+  };
 }
 
-const DrumPad: FC<Props> = ({ id, keyToPress, audio }) => {
+const DrumPad: FC<Props> = ({ drum }) => {
+  const { audio, id, keyToPress } = drum;
+  const { power, setLastPlayedSound, volume } = useContext(StateContext);
+
+  useEffect(() => {
+    document.addEventListener("keydown", keyListenerHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyListenerHandler);
+    };
+  }, []);
+
   const theme = useTheme();
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    console.log({ event });
-    if (event.key === keyToPress) {
-      // play the corresponding audio
-      // AND setState last keyPressed
+  const keyListenerHandler = async (e: KeyboardEvent) => {
+    const player = document.getElementById(
+      e.key.toUpperCase()
+    ) as HTMLAudioElement;
+    console.log(player);
+    if (player) {
+      player.volume = volume / 100;
+      player!.play();
+      setLastPlayedSound(player.id);
     }
   };
 
-  const handleClick = (event: any, keyToPress: string) => {
-    // implement playing audio on click
-    console.log({ keyToPress });
-    console.log({ event });
-
-    return { bla: "bla" };
-  };
+  const handleClick = useCallback((event: any) => {
+    const target = event.target.children[0];
+    target.play();
+    setLastPlayedSound(target.id);
+  }, []);
 
   return (
-    <Button
-      onClick={(e) => handleClick(e, keyToPress)}
+    <Grid
+      item
+      xs={4}
       sx={{
-        m: "1vh 1vw",
-        color: theme.palette.secondary.main,
-        backgroundColor: theme.palette.background.default,
-        height: "7vh",
-        width: "8vw",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "7px",
       }}
+      className="drum-pad"
+      id={id}
     >
-      {keyToPress}
-    </Button>
+      <Button
+        onClick={(e) => handleClick(e)}
+        sx={{
+          color: theme.palette.secondary.main,
+          backgroundColor: power
+            ? theme.palette.background.default
+            : theme.palette.background.paper,
+          height: { xs: "2rem", sm: "5rem" },
+          width: { xs: "2rem", sm: "5rem" },
+        }}
+        disabled={!power}
+      >
+        {keyToPress}
+        <audio src={audio} className="clip" id={keyToPress} />
+      </Button>
+    </Grid>
   );
 };
 export default DrumPad;

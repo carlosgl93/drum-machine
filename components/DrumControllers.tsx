@@ -5,30 +5,20 @@ import PowerSwitch from "./PowerSwitch";
 import SoundInfo from "./SoundInfo";
 import VolumeSlider from "./VolumeSlider";
 
-// Material Components
-
-// My components
-
-// Queries & Mutations
-
-// Typescript
 interface Props {}
 const DrumControllers: FC<Props> = ({}) => {
   return (
     <Box
-      display='flex'
-      flexDirection='column'
-      justifyContent='center'
-      textAlign='center'
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      textAlign="center"
     >
-      <Box>
-        {/* PowerSwitch*/}
-        <PowerSwitch />
-        {/* SoundInfo Component */}
-        <SoundInfo />
-        {/* Volume Slider */}
-        <VolumeSlider />
-      </Box>
+      {/* PowerSwitch*/}
+      <PowerSwitch />
+      {/* SoundInfo Component */}
+      {/* Volume Slider */}
+      <VolumeSlider />
     </Box>
   );
 };

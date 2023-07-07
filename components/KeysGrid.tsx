@@ -1,12 +1,13 @@
 // React & dependencies
-import { FC } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 // Material Components
-import { Grid, useTheme } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 // My components
 import DrumPad from "./DrumPad";
 import drums from "../assets/drums";
+import { StateContext } from "../context";
 
 // Queries & Mutations
 
@@ -14,38 +15,40 @@ import drums from "../assets/drums";
 interface Props {}
 
 const KeysGrid: FC<Props> = ({}) => {
-  const theme = useTheme();
+  const { lastPlayedSound } = useContext(StateContext);
 
   return (
-    <Grid
-      component='section'
-      container
-      id='display'
+    <Box
       sx={{
-        width: "50vw",
-        textAlign: "center",
-        position: "relative",
+        display: "flex",
+        flexDirection: "column",
       }}
-      spacing={1}
     >
-      {drums.map((d) => {
-        return (
-          <Grid
-            item
-            xs={4}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: "7px",
-            }}
-            key={d.id + d.keyToPress}
-          >
-            <DrumPad id={d.id} keyToPress={d.keyToPress} audio={d.audio} />
-          </Grid>
-        );
-      })}
-    </Grid>
+      <Box
+        component={"div"}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+        id="display"
+      >
+        {lastPlayedSound}
+      </Box>
+      <Grid
+        component="section"
+        container
+        sx={{
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
+        }}
+        spacing={1}
+      >
+        {drums.map((d) => {
+          return <DrumPad key={d.id} drum={d} />;
+        })}
+      </Grid>
+    </Box>
   );
 };
 export default KeysGrid;

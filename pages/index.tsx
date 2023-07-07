@@ -1,41 +1,40 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-// Material UI
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 
 import KeysGrid from "../components/KeysGrid";
 import DrumControllers from "../components/DrumControllers";
 
 const Home: NextPage = () => {
   const theme = useTheme();
+
+  // const [power, setPower] = useState<boolean>(true);
+  // const [lastSoundPlayed, setLastSoundPlayed] = useState("");
+
   return (
-    <Box
-      sx={{
-        minHeight: "97vh",
-        width: "100%",
-        backgroundColor: theme.palette.background.paper,
-      }}
-    >
+    <>
       <Head>
         <title>Drum Machine by CGL</title>
-        <meta name='description' content="CGL's Drum machine" />
-        <link rel='icon' href='/favicon.ico' />
+        <meta name="description" content="CGL's Drum machine" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box
-        component='main'
-        id='drum-machine'
-        display='flex'
-        justifyContent='center'
-        alignItems='center'
+        component="main"
+        id="drum-machine"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
         sx={{
           height: "100vh",
+          width: "100%",
+          backgroundColor: theme.palette.background.paper,
         }}
       >
         <Box
-          display='flex'
-          flexDirection='row'
           sx={{
+            display: "flex",
+            flexDirection: "column",
             border: `2px solid ${theme.palette.secondary.main}`,
             borderRadius: "4px",
             backgroundColor: theme.palette.background.paper,
@@ -46,7 +45,7 @@ const Home: NextPage = () => {
           <DrumControllers />
         </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 
