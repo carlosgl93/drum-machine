@@ -32,7 +32,7 @@ const KeysGrid: FC<Props> = ({}) => {
         }}
         id="display"
       >
-        {lastPlayedSound}
+        <h3>{lastPlayedSound}</h3>
       </Box>
       <Grid
         component="section"
