@@ -9,14 +9,9 @@ import DrumPad from "./DrumPad";
 import drums from "../assets/drums";
 import { StateContext } from "../context";
 
-// Queries & Mutations
-
-// Typescript
 interface Props {}
 
 const KeysGrid: FC<Props> = ({}) => {
-  const { lastPlayedSound } = useContext(StateContext);
-
   return (
     <Box
       sx={{
@@ -24,16 +19,6 @@ const KeysGrid: FC<Props> = ({}) => {
         flexDirection: "column",
       }}
     >
-      <Box
-        component={"div"}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-        id="display"
-      >
-        <h3>{lastPlayedSound}</h3>
-      </Box>
       <Grid
         component="section"
         container

@@ -1,6 +1,6 @@
 // React & dependencies
 import { Box } from "@mui/material";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import PowerSwitch from "./PowerSwitch";
 import SoundInfo from "./SoundInfo";
 import VolumeSlider from "./VolumeSlider";
@@ -14,10 +14,9 @@ const DrumControllers: FC<Props> = ({}) => {
       justifyContent="center"
       textAlign="center"
     >
-      {/* PowerSwitch*/}
       <PowerSwitch />
-      {/* SoundInfo Component */}
-      {/* Volume Slider */}
+      <SoundInfo />
+
       <VolumeSlider />
     </Box>
   );

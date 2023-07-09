@@ -1,15 +1,9 @@
 // React & dependencies
 import { FC, useContext } from "react";
 
-// Material Components
 import { Box, Typography } from "@mui/material";
 import { StateContext } from "../context";
 
-// My components
-
-// Queries & Mutations
-
-// Typescript
 interface Props {}
 
 const SoundInfo: FC<Props> = ({}) => {
@@ -17,7 +11,9 @@ const SoundInfo: FC<Props> = ({}) => {
 
   return (
     <Box>
-      <Typography>{lastPlayedSound}</Typography>
+      <Typography variant="h6" id="display">
+        {lastPlayedSound ? lastPlayedSound : "Play!"}
+      </Typography>
     </Box>
   );
 };
