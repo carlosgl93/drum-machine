@@ -12,35 +12,35 @@ interface Props {
 
 const DrumPad: FC<Props> = ({ drum }) => {
   const { audio, id, keyToPress } = drum;
+  const theme = useTheme();
   const { power, setLastPlayedSound, volume } = useContext(StateContext);
 
   useEffect(() => {
-    document.addEventListener("keydown", keyListenerHandler);
+    if (power) {
+      document.addEventListener("keydown", keyListenerHandler);
 
-    return () => {
-      document.removeEventListener("keydown", keyListenerHandler);
-    };
-  }, []);
-
-  const theme = useTheme();
+      return () => {
+        document.removeEventListener("keydown", keyListenerHandler);
+      };
+    }
+  }, [power]);
 
   const keyListenerHandler = async (e: KeyboardEvent) => {
     const player = document.getElementById(
       e.key.toUpperCase()
     ) as HTMLAudioElement;
-    console.log(player);
     if (player) {
       player.volume = volume / 100;
-      player!.play();
+      player.play();
       setLastPlayedSound(player.id);
     }
   };
 
-  const handleClick = useCallback((event: any) => {
+  const handleClick = (event: any) => {
     const target = event.target.children[0];
     target.play();
     setLastPlayedSound(target.id);
-  }, []);
+  };
 
   return (
     <Grid
